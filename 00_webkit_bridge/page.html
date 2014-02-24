@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Javascript and Qt</title>
+    <script type=text/javascript>
+        //var py_obj;
+        
+        function sendTextToQt() {
+            var inputElement = document.getElementById("textToQt");
+            py_obj.printText(inputElement.value);
+        }
+        
+        function triggerQtFunction() {
+            py_obj.triggerSomething();
+        }
+        
+        function recvTextFromQt(text) {
+            var outputElement = document.getElementById("textFromQt");
+            outputElement.value = text;
+        }
+        
+        function initialize() {
+            py_obj.someSignal.connect(recvTextFromQt);
+        }
+        
+    </script>
+</head>
+<body onload="initialize();">
+    <div>
+        <h2>Test 1 : send some text from html/javascript to Qt, and print it in Qt console</h2>
+        <label for="textToQt">Input Text :</label>
+        <input type="text" id="textToQt"/>
+        <button onclick="sendTextToQt();">Send Input to Qt</button>
+        <br/>
+        <br/>
+    </div>
+
+    <hr/>
+
+    <div>
+        <h2>Test 2 : trigger Qt function(slot), and receive the text from Qt</h2>
+        <button onclick="triggerQtFunction();">Trigger Qt function</button>
+        <br/>
+        <br/>
+        <label for="textFromQt">Received Text :</label>
+        <input type="text" id="textFromQt"/>
+    </div>
+</body>
+</html>
